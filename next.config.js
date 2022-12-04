@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['e-cdns-images.dzcdn.net']
+    domains: ['i.discogs.com', 'st.discogs.com'],
   }
 }
 
