@@ -43,7 +43,7 @@ export default function Home({ isMobileView }: { isMobileView: boolean}) {
               {isMobileView ? (
                 <Link href="/search">Search</Link>
               ) : (
-              <Popup trigger={<a>Test</a>} modal>
+              <Popup trigger={<a>Search</a>} modal>
                 <div className={styles.searchModal}>
                   <div className={styles.title}><h1>Search</h1></div>
                   <div className={styles.modal_search}>
