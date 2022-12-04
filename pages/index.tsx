@@ -9,7 +9,7 @@ import 'reactjs-popup/dist/index.css';
 
 // }
 
-export default function Home({ isMobileView }) {
+export default function Home({ isMobileView }: { isMobileView: boolean}) {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
 
