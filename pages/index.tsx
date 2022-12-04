@@ -2,12 +2,25 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '/styles/Home.module.css'
 import Link from 'next/link'
-
+import { useState } from 'react'
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 // export async function getServerSideProps() {
 
 // }
 
-export default function Home() {
+export default function Home({ isMobileView }) {
+  const [search, setSearch] = useState('');
+  const [results, setResults] = useState([]);
+
+  const Search = (s:string) => {
+    fetch('https://api.discogs.com/database/search?&q='+s+'&type=master&key=bMdETVycfagNcpGDGtyq&secret=WsrLcgGOZerQpaDrWcLhkjLXemqmCoid',
+    {
+       method: 'GET',
+    })
+   .then(res => (res.json().then(data => {setResults(data.results.slice(0, 3));})))
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -24,7 +37,56 @@ export default function Home() {
         </div>
           <ul>
             <li>
-              <Link href="/search">Search</Link>
+                <Link href="/">Home</Link>
+            </li>
+            <li>
+              {isMobileView ? (
+                <Link href="/search">Search</Link>
+              ) : (
+              <Popup trigger={<a>Test</a>} modal>
+                <div className={styles.searchModal}>
+                  <div className={styles.title}><h1>Search</h1></div>
+                  <div className={styles.modal_search}>
+                    <div className={styles.modal_inputs}>
+                      <input type="text" className={styles.searchBar} onChange={(e)=>{setSearch(e.target.value)}}/>
+                      <button className={styles.searchButton} onClick={() => Search(search)}>Search</button>
+                    </div>
+                  <div className={styles.results}>
+                    {results.map((result: any, i) => (
+                        <Popup key={i} trigger={
+                            <div className={styles.result}>
+                                <div className={styles.result_image}>
+                                    <picture>
+                                        <source srcSet={result.cover_image} type="image/jpeg" />
+                                        <img alt={result.title} src={result.cover_image} width={100} height={100} />
+                                    </picture>
+                                </div>
+                                <div className={styles.result_info}>
+                                    <h3>{result.title}</h3>
+                                    <p>{result.year}</p>
+                                </div>
+                            </div>
+                        } position="top center">
+                            <div className={styles.modal}>
+                                <p>Options</p>
+                                <div className={styles.modal_buttons}>
+                                    <p><a onClick={()=>{
+
+                                    }} className={styles.modal_button}>Add to owned vinyls</a></p>
+                                    <p><a onClick={()=>{
+
+                                    }} className={styles.modal_button}>Add to wishlist</a></p>
+                                </div>
+
+                            </div>
+                        </Popup>
+                      ))}
+
+                      </div>
+                  </div>
+                </div>
+              </Popup>
+              )}
             </li>
             <li>
               <Link href="/users/me">Profile</Link>
@@ -64,7 +126,7 @@ export default function Home() {
 
         
         <div className={styles.grid}>
-        {Array(5).fill(0).map((_, i) => (
+        {Array(13).fill(0).map((_, i) => (
           <div className={styles.card} key={i}>
             <picture>
               <source srcSet="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg"/>
@@ -86,4 +148,17 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+Home.getInitialProps = async (ctx: any) => {
+  let isMobileView = (ctx.req
+    ? ctx.req.headers['user-agent']
+    : navigator.userAgent).match(
+      /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+    )
+    
+    //Returning the isMobileView as a prop to the component for further use.
+    return {
+      isMobileView: Boolean(isMobileView)
+    }
 }
