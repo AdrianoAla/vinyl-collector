@@ -10,25 +10,21 @@ import { useState } from 'react'
 
 
 export default function Search() {
-    const [search, setSearch] = useState('')
-    const [results, setResults] = useState([])
+    const [search, setSearch] = useState('');
+    const [results, setResults] = useState([]);
 
     const Search = (s:string) => {
-        const url = 'https://api.deezer.com/user/2529/playlists';
-        fetch(url, {
-            mode: 'cors',
-            method: "post",
-            headers: {
-                 "Content-Type": "application/json"
-            }})
-        .then(res => {
-            console.log(res);
-        })
+         fetch('https://api.deezer.com/search/album?q=' + s)
+        .then(res => res.json()
+        .then(data => {
+            console.log(data.data);
+        }))
     }
 
     return (
         <div className={styles.container}>
             <Head>
+                <script src="https://e-cdn-files.dzcdn.net/js/min/dz.js"></script>
                 <title>Vinylist</title>
                 <meta name="description" content="Welcome to Vinylist, an app for tracking your vinyl collection over time." />
                 <link rel="icon" href="/favicon.ico" />
