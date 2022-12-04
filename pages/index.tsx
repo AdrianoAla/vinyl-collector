@@ -60,7 +60,7 @@ export default function Home() {
         
         <div className={styles.grid}>
         {Array(5).fill(0).map((_, i) => (
-          <div className={styles.card}>
+          <div className={styles.card} key={i}>
             <Image src="/../public/vinyl-2.jpeg" alt="Vinyl" width={250} height={250} />
             <div>
               <h2>Blue Album</h2>
