@@ -57,8 +57,8 @@ export default function Search() {
                 </div>
                 <div className={styles.results}>
                     {results.map((result: any, i) => (
-                        <Popup trigger={
-                            <div className={styles.result} key={i}>
+                        <Popup key={i} trigger={
+                            <div className={styles.result}>
                                 <div className={styles.result_image}>
                                     <img alt={result.title} src={result.cover_image} width={100} height={100} />
                                 </div>
