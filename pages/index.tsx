@@ -48,7 +48,7 @@ export default function Home() {
             {Array(15).fill(0).map((_, i) => (
             <div className={styles.vinyl} key={i}>
               <a href="https://google.com/">
-                <Image src="/../public/vinyl.jpeg" alt="Vinyl" width={120} height={120} />
+                <Image src="https://e-cdns-images.dzcdn.net/images/cover/6111c5ab9729c8eac47883e4e50e9cf8/250x250-000000-80-0-0.jpg" alt="Vinyl" width={120} height={120} />
                 Taylor Swift - Lover
               </a>
             </div>
@@ -61,7 +61,7 @@ export default function Home() {
         <div className={styles.grid}>
         {Array(5).fill(0).map((_, i) => (
           <div className={styles.card} key={i}>
-            <Image src="/../public/vinyl-2.jpeg" alt="Vinyl" width={250} height={250} />
+            <Image src="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg" alt="Vinyl" width={250} height={250} />
             <div>
               <h2>Blue Album</h2>
               <h3>Weezer</h3>
