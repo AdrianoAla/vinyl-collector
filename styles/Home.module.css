@@ -4,7 +4,6 @@
 }
 
 .main {
-
   min-height: 90vh;
   flex: 1;
   display: flex;
@@ -70,10 +69,11 @@
   justify-content: center;
   flex-wrap: wrap;
   max-width: 1000px;
+  margin-top: 1rem;
 }
 
 .card {
-  margin: 1rem;
+  margin: 0.3rem;
   padding: 0.9rem;
   text-align: left;
   color: inherit;
@@ -83,6 +83,11 @@
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
   padding-bottom: 0;
+}
+
+.card img {
+  width: 150px;
+  height: 150px;
 }
 
 .card div {
@@ -100,12 +105,12 @@
 
 .card h2 {
   margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+  font-size:medium;
 }
 
-.card p {
+.card h3 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: small;
   line-height: 1.5;
 }
 
@@ -116,7 +121,7 @@
 
 .topBarContainer
 {
-  --top-bar-height: 180px;
+  --top-bar-height: 250px;
   display:flex;
   height: var(--top-bar-height);
   width:65%;
@@ -147,8 +152,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 150px;
-  width: 150px;
+  height: 250px;
+  width: 250px;
   border-radius: 10px;
   font-size: 17px;
   margin-right: 1rem;
@@ -156,6 +161,12 @@
 
 .vinyl:not(:first-child) {
   margin-left: 1rem;
+}
+
+.vinyl img {
+  height: 215px;
+  width: 215px;
+  border-radius: 10px;
 }
 
 
@@ -264,17 +275,18 @@
   }
   
   .topBarContainer {
-    --top-bar-height:150px;
+    height:250px;
     width: 100%;
   }
 
   .vinyl img {
-    width:100px;
-    height: 100px;
+    width: 190px;
+    height: 190px;
   }
 
   .vinyl {
     font-size:11px;
+    height: 200px;
   }
 
   .arrow{
