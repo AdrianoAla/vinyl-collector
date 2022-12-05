@@ -7,40 +7,44 @@ import dynamic from 'next/dynamic'
 const Nav = dynamic(() => import('../components/nav'))
 const Favourite = dynamic(() => import('../components/favourite'))
 
+const scroll_r = () => {
+  document.querySelector(`.${styles.list}`)?.scrollBy(500, 0)
+}
 
-export default function Home({ isMobileView }: { isMobileView: boolean}) {
-  const [search, setSearch] = useState('');
-  const [results, setResults] = useState([]);
+const scroll_l = () => {
+  document.querySelector(`.${styles.list}`)?.scrollBy(-500, 0)
+}
 
-  const Search = (s:string) => {
-    fetch('https://api.discogs.com/database/search?&q='+s+'&type=master&key=bMdETVycfagNcpGDGtyq&secret=WsrLcgGOZerQpaDrWcLhkjLXemqmCoid',
-    {
-       method: 'GET',
-    })
-   .then(res => (res.json().then(data => {setResults(data.results.slice(0, 3));})))
-  }
-
+export default function Home() {
   return (
     <div className={styles.container}>
+      
       <Head>
         <title>Vinylist</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <meta name="description" content="Welcome to Vinylist, an app for tracking your vinyl collection over time." />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine"></link>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Nav />
+      <Nav /> {/* Navigation bar */}
 
       <main className={styles.main}>
+
+        {/* TITLE */}
 
         <div className={styles.title}>
           <h1>Lilly</h1>
           <h3>(@r1ghtwhereyouleftm3)</h3>
         </div>
 
-        <div className={styles.topBarContainer}>
+        {/* MAIN CONTENT */}
+        {/* FAVOURITES SECTION */}
 
-          <button className={styles.arrow} onClick={(()=>{document.querySelector("main div div")?.scrollBy(-500, 0)})}>&larr;</button>
+        <div className={styles.topBarContainer}>
+          <button className={styles.arrow} onClick={scroll_l}>
+            &larr;
+          </button>
           
           <div className={styles.list}>
             {Array(15).fill(0).map((_, i) => (
@@ -54,12 +58,16 @@ export default function Home({ isMobileView }: { isMobileView: boolean}) {
             ))}
           </div>
           
-          <button className={styles.arrow} onClick={(()=>{document.querySelector("main div div")?.scrollBy(500, 0)})}>&rarr;</button>
+          <button className={styles.arrow} onClick={scroll_r}>
+            &rarr;
+          </button>
         </div>
 
+        {/* ALL SECTION */}
         
         <div className={styles.grid}>
         {Array(13).fill(0).map((_, i) => (
+          
           <div className={styles.card} key={i}>
             <picture>
               <source srcSet="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg"/>
@@ -70,12 +78,15 @@ export default function Home({ isMobileView }: { isMobileView: boolean}) {
               <h3>Weezer</h3>
             </div>
           </div>
+        
         ))}
         </div>
       </main>
 
+      {/* FOOTER */}
+
       <footer className={styles.footer}>
-        <a href="https://adrianoalasia.com/" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/AdrianoAla" target="_blank" rel="noopener noreferrer">
           Made by Adriano Alasia
         </a>
       </footer>
