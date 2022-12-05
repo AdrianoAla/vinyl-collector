@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 
 const Nav = dynamic(() => import('../components/nav'))
 const Favourite = dynamic(() => import('../components/favourite'))
+const Card = dynamic(() => import('../components/card'))
 
 const scroll_r = () => {
   document.querySelector(`.${styles.list}`)?.scrollBy(500, 0)
@@ -67,18 +68,11 @@ export default function Home() {
         
         <div className={styles.grid}>
         {Array(13).fill(0).map((_, i) => (
-          
-          <div className={styles.card} key={i}>
-            <picture>
-              <source srcSet="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg"/>
-              <img src="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg" alt="Vinyl" width={250} height={250} />
-            </picture>
-            <div>
-              <h2>Blue Album</h2>
-              <h3>Weezer</h3>
-            </div>
-          </div>
-        
+          <Card 
+            Title="Weezer - Weezer"
+            URL="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg"
+            Key={i}
+          />
         ))}
         </div>
       </main>

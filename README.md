@@ -1,4 +1,4 @@
-![Banner](Banner.png)
+![Banner](./public/Banner.png)
 
 # Vinylist: A Website for all your Collection Tracking Needs
 
