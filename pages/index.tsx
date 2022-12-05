@@ -1,25 +1,27 @@
 import Head from 'next/head'
 import styles from '/styles/Home.module.css'
 import { useState } from 'react'
-import 'reactjs-popup/dist/index.css';
 import dynamic from 'next/dynamic'
+
+
 
 const Nav = dynamic(() => import('../components/nav'))
 const Favourite = dynamic(() => import('../components/favourite'))
 const Card = dynamic(() => import('../components/card'))
 
-const scroll_r = () => {
-  document.querySelector(`.${styles.list}`)?.scrollBy(500, 0)
-}
-
-const scroll_l = () => {
-  document.querySelector(`.${styles.list}`)?.scrollBy(-500, 0)
-}
+const scroll_r = () => {document.querySelector(`.${styles.list}`)?.scrollBy(500, 0);}
+const scroll_l = () => {document.querySelector(`.${styles.list}`)?.scrollBy(-500, 0);}
 
 export default function Home() {
+
+  const [favourites, setFavourites] = useState([]);
+  const [vinyls, setVinyls] = useState([]);
+
   return (
     <div className={styles.container}>
       
+      {/* HEAD */}
+
       <Head>
         <title>Vinylist</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
@@ -43,6 +45,7 @@ export default function Home() {
         {/* FAVOURITES SECTION */}
 
         <div className={styles.topBarContainer}>
+          
           <button className={styles.arrow} onClick={scroll_l}>
             &larr;
           </button>
@@ -62,6 +65,7 @@ export default function Home() {
           <button className={styles.arrow} onClick={scroll_r}>
             &rarr;
           </button>
+        
         </div>
 
         {/* ALL SECTION */}
