@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6e7f50;
+    padding: 1rem;
+  }
+
+.navbar_logo {
+    display: flex;
+}
+
+.navbar_logo svg {
+    animation:spin 19s linear infinite;
+}
+
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
+}
+
+.navbar_logo h3 {
+    padding-left: 0.7rem;
+}
+
+.navbar ul{
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar_logo {
+        display: none; 
+    }
+
+    .navbar ul {
+        justify-content: space-between;
+    }
+
+
+    .navbar ul li {
+        margin: 0;
+    }
+}

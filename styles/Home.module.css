@@ -171,53 +171,7 @@
   border: 1px solid #00000000;
 }
 
-.buttons { 
-  display:block;
-  justify-content: space-between;
-}
 
-.vinyl {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 250px;
-  width: 250px;
-  border-radius: 10px;
-  font-size: 17px;
-  margin-right: 1rem;
-}
-
-.vinyl:not(:first-child) {
-  margin-left: 1rem;
-}
-
-.vinyl img {
-  height: 215px;
-  width: 215px;
-  border-radius: 10px;
-}
-
-
-.navbar_logo {
-  display: flex;
-}
-
-.navbar_logo svg {
-  animation:spin 19s linear infinite;
-}
-
-@keyframes spin { 
-  100% { 
-      -webkit-transform: rotate(360deg);
-      -moz-transform: rotate(360deg); 
-      transform:rotate(360deg); 
-  } 
-}
-
-.navbar_logo h3 {
-  padding-left: 0.7rem;
-}
 
 .searchBar {
   display: flex;
@@ -272,25 +226,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .navbar {
-    width:100%
-  }
-  
-  .navbar_logo {
-    display: none; 
-  }
-
-  .navbar ul{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0;
-  }
-
-  .navbar ul li {
-    margin: 0;
-  }
-
   .grid {
     padding: 0;
     margin: 0;

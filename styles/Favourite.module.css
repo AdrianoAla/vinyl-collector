@@ -1,0 +1,22 @@
+
+.vinyl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 250px;
+    width: 250px;
+    border-radius: 10px;
+    font-size: 17px;
+    margin-right: 1rem;
+}
+
+.vinyl:not(:first-child) {
+    margin-left: 1rem;
+}
+
+.vinyl img {
+    height: 215px;
+    width: 215px;
+    border-radius: 10px;
+}
