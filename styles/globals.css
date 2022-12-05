@@ -18,24 +18,9 @@ a, h1, h2, h3, p {
   text-decoration: none;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: #6e7f50;
-  padding: 1rem;
-  width: 100%;
-  /* border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px; */
-}
 
-nav ul {
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
-  width: fit-content;
-}
+
+
 
 nav ul li {
   margin-left: 1rem;
