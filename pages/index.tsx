@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import styles from '/styles/Home.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-
+import { useAuth } from '../contexts/authContext'
+import { collection, getDoc, doc, arrayRemove } from "firebase/firestore"; 
+import { db } from '../config/firebase'
 
 
 const Nav = dynamic(() => import('../components/nav'))
@@ -14,8 +16,21 @@ const scroll_l = () => {document.querySelector(`.${styles.list}`)?.scrollBy(-500
 
 export default function Home() {
 
-  const [favourites, setFavourites] = useState([]);
-  const [vinyls, setVinyls] = useState([]);
+  const [favourites, setFavourites] = useState<Array<any>>([]);
+  const [vinyls, setVinyls] = useState<Array<any>>([]);
+  const {user} = useAuth();
+  const [name, setName] = useState('');
+
+  const UsersRef = collection(db, "Users");
+
+  useEffect(()=>{
+    getDoc(doc(UsersRef, user.uid)).then ((doc) => {
+        console.log(doc.data());
+        setName(doc.data()?.Name);
+        setVinyls(Array.from(doc.data()?.Vinyls).filter((vinyl: any) => vinyl.Favourite === false));
+        setFavourites(Array.from(doc.data()?.Vinyls).filter((vinyl: any) => vinyl.Favourite === true));
+    })
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -30,55 +45,81 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Nav /> {/* Navigation bar */}
+      <Nav user={user}/> {/* Navigation bar */}
 
       <main className={styles.main}>
 
         {/* TITLE */}
 
-        <div className={styles.title}>
-          <h1>Lilly</h1>
-          <h3>(@r1ghtwhereyouleftm3)</h3>
+        <div className={styles.username}>
+          <h1>{name}</h1>
+          <h3>(@{user.displayName})</h3>
         </div>
 
         {/* MAIN CONTENT */}
         {/* FAVOURITES SECTION */}
+        {favourites.length === 0 && vinyls.length === 0 ? (<div className={styles.nothing}><h1>No Vinyls</h1></div>) : (
+          <>
+          <div className={styles.topBarContainer}>
+            
+            
+            
+            {favourites.length === 0 ? (<div className={styles.nothing}><h1>No Favourites</h1></div>) : (
+            <>
+              <button className={styles.arrow} onClick={scroll_l}>
+                &larr;
+              </button>
+              <div className={styles.list}>
 
-        <div className={styles.topBarContainer}>
-          
-          <button className={styles.arrow} onClick={scroll_l}>
-            &larr;
-          </button>
-          
-          <div className={styles.list}>
-            {Array(15).fill(0).map((_, i) => (
-              
-              <Favourite
-                Title="Taylor Swift - Lover" 
-                URL="https://e-cdns-images.dzcdn.net/images/cover/6111c5ab9729c8eac47883e4e50e9cf8/250x250-000000-80-0-0.jpg"
-                Key={i}
-              />
+                  {favourites.map((v, i) => (
+                    
+                    <Favourite
+                      Title={v.Title}
+                      URL={v.Img}
+                      Key={i}
+                      Id={v.Id}
+                      Callback={(obj: any) => {
+                        setFavourites(favourites.filter((vinyl: any) => vinyl.Title !== obj.Title));
+                        setVinyls([...vinyls, obj]);
+                      }}
+                    />
 
-            ))}
+                  ))}
+
+              </div>
+              <button className={styles.arrow} onClick={scroll_r}>
+                &rarr;
+              </button>
+            </>
+            )}
+          
           </div>
-          
-          <button className={styles.arrow} onClick={scroll_r}>
-            &rarr;
-          </button>
-        
-        </div>
 
-        {/* ALL SECTION */}
-        
-        <div className={styles.grid}>
-        {Array(13).fill(0).map((_, i) => (
-          <Card 
-            Title="Weezer - Weezer"
-            URL="https://e-cdns-images.dzcdn.net/images/cover/638ad930e4f20376e8a2851d9c41be00/250x250-000000-80-0-0.jpg"
-            Key={i}
-          />
-        ))}
-        </div>
+          {/* ALL SECTION */}
+          
+          <div className={styles.grid}>
+          {vinyls.map((v, i) => (
+            <Card 
+              Title={v.Title}
+              URL={v.Img}
+              Key={i}
+              Id={v.Id}
+              UID={"-1"}
+              Callback={(obj: any, action:string) => {
+                if (action === "remove") {
+                  setFavourites(favourites.filter((vinyl: any) => vinyl.Title !== obj.Title));
+                  setVinyls(vinyls.filter((vinyl: any) => vinyl.Title !== obj.Title));
+                }
+                else if (action === "add") {
+                  setFavourites([...favourites, obj]);
+                  setVinyls(vinyls.filter((vinyl: any) => vinyl.Title !== obj.Title));
+                }
+              }}
+            />
+          ))}
+          </div>
+        </>
+        )}
       </main>
 
       {/* FOOTER */}

@@ -9,7 +9,7 @@
     border-radius: 10px;
     transition: color 0.15s ease, border-color 0.15s ease;
     max-width: 300px;
-    padding-bottom: 0;
+    display:flex;
 }
 
 .card img {
@@ -37,13 +37,14 @@
     padding-bottom: 0.3rem;
     font-size: small;
     line-height: 1.5;
+    width:fit-content;
+    word-wrap: break-word;
 }
 
 @media only screen and (max-width: 600px) {
     .card {
         margin: 0.1rem;
         padding: 0.6rem;
-        padding-bottom: 0;
     }
 
     .card img {

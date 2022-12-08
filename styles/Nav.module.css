@@ -33,6 +33,10 @@
     width: 100%;
 }
 
+.navbar li:hover {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
     .navbar_logo {
         display: none; 
@@ -40,6 +44,9 @@
 
     .navbar ul {
         justify-content: space-between;
+        display: flex;
+        width: 100%;
+        padding:0;
     }
 
 
