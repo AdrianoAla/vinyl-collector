@@ -7,4 +7,4 @@
  - Powerful search function with Discogs API
  - Easy to edit if you add or remove a vinyl from your collection
 
-## Expected release: Before 2023.
+## Expected release: 2025.
